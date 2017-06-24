@@ -52,19 +52,21 @@ static keyframe_animation_t lcd_layer_display = {
 
 // The color animation animates the LCD color when you change layers
 static keyframe_animation_t color_animation = {
-    .num_frames = 2,
+    .num_frames = 1,
     .loop = false,
-    // Note that there's a 200 ms no-operation frame,
-    // this prevents the color from changing when activating the layer
-    // momentarily
-    .frame_lengths = {gfxMillisecondsToTicks(200), gfxMillisecondsToTicks(500)},
-    .frame_functions = {keyframe_no_operation, backlight_keyframe_animate_color},
+    // Note that there's a 200 ms no-operation frame, this prevents the color
+    // from changing when activating the layer momentarily.
+    // .frame_lengths = {gfxMillisecondsToTicks(0), gfxMillisecondsToTicks(300)},
+    // .frame_functions = {keyframe_no_operation, backlight_keyframe_animate_color},
+    .frame_lengths = {gfxMillisecondsToTicks(10)},
+    .frame_functions = {backlight_keyframe_animate_color},
 };
 
 void initialize_user_visualizer(visualizer_state_t* state) {
     // The brightness will be dynamically adjustable in the future
     // But for now, change it here.
-    lcd_backlight_brightness(130);
+    uint8_t brightness = 180;
+    lcd_backlight_brightness(brightness);
     state->current_lcd_color = initial_color;
     state->target_lcd_color = logo_background_color;
     initial_update = true;

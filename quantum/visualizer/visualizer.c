@@ -177,10 +177,25 @@ static bool update_keyframe_animation(keyframe_animation_t* animation, visualize
         return false;
     }
     if (animation->current_frame == -1) {
-       animation->current_frame = 0;
-       animation->time_left_in_frame = animation->frame_lengths[0];
-       animation->need_update = true;
-       animation->first_update_of_frame = true;
+        // If the LCD is currently white, set the current hue to the target color to
+        // avoid spinning through the whole color wheel.
+        if (LCD_SAT(state->prev_lcd_color) == 0x00) {
+            uint32_t current = state->prev_lcd_color;
+            uint32_t target = state->target_lcd_color;
+            state->current_lcd_color = LCD_COLOR(LCD_HUE(target), LCD_SAT(current), LCD_INT(current));
+        }
+        // If the target saturation is 0 (white), set the target hue to be the same
+        // as the current hue.
+        if (LCD_SAT(state->target_lcd_color) == 0x00) {
+            //uint32_t target_hue = LCD_HUE(state->prev_lcd_color);
+            uint32_t current = state->prev_lcd_color;
+            uint32_t target = state->target_lcd_color;
+            state->target_lcd_color = LCD_COLOR(LCD_HUE(current), LCD_SAT(target), LCD_INT(target));
+        }
+        animation->current_frame = 0;
+        animation->time_left_in_frame = animation->frame_lengths[0];
+        animation->need_update = true;
+        animation->first_update_of_frame = true;
     } else {
         animation->time_left_in_frame -= delta;
         while (animation->time_left_in_frame <= 0) {
@@ -427,7 +442,7 @@ uint8_t visualizer_get_mods() {
   if (!has_oneshot_mods_timed_out()) {
     mods |= get_oneshot_mods();
   }
-#endif  
+#endif
   return mods;
 }
 
