@@ -88,7 +88,7 @@ static bool keyframe_fade_out(keyframe_animation_t* animation, visualizer_state_
 keyframe_animation_t default_startup_animation = {
     .num_frames = 3,
     .loop = false,
-    .frame_lengths = {0, 0, gfxMillisecondsToTicks(5000)},
+    .frame_lengths = {0, 0, 0, gfxMillisecondsToTicks(1000), 0},
     .frame_functions = {
             keyframe_enable,
             lcd_keyframe_draw_logo,
