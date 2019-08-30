@@ -88,9 +88,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,    KC_A,      KC_S,      KC_D,      KC_F,      KC_G,      /********/
         KC_LSFT,   KC_Z,      KC_X,      KC_C,      KC_V,      KC_B,      C_b,
         KC_CAPS,   XXXXXXX,   XXXXXXX,   HYPER,     KC_LALT,   /********/ /********/
-                                                    /********/ HL2,       CTL_GUI,
+                                                    /********/ HL3,       CTL_GUI,
                                                     /********/ /********/ KC_ESC,
-                                                    KC_LCTL,   HL1,       KC_LGUI,
+                                                    KC_LCTL,   HL2,       KC_LGUI,
      // RIGHT HAND
      // 7          8          9          10         11         12         13
         TG4,       KC_6,      KC_7,      KC_8,      KC_9,      KC_0,      KC_LEAD,
@@ -106,6 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  * LAYER1
+ *
  *
  * ┌───────┬─────┬─────┬─────┬─────┬─────┬─────┐     ┌─────┬─────┬─────┬─────┬─────┬─────┬───────┐
  * │ RESET │ F01 │ F02 │ F03 │ F04 │ F05 │     │     │     │ F06 │ F07 │ F08 │ F09 │ F10 │ RESET │
